@@ -54,7 +54,7 @@ int rb_tree_is_valid(const rb_tree_t *tree);
 rb_tree_t *rb_tree_insert(rb_tree_t **tree, int value);
 rb_tree_t *array_to_rb_tree(int *array, size_t size);
 rb_tree_t *rb_tree_remove(rb_tree_t *root, int n);
-void rotl(rb_tree_t **tree, rb_tree_t *node);
-void rotr(rb_tree_t **tree, rb_tree_t *node);
+void rotate_left(rb_tree_t **tree, rb_tree_t *node);
+void rotate_right(rb_tree_t **tree, rb_tree_t *node);
 
 #endif /* RB_TREES_H */
