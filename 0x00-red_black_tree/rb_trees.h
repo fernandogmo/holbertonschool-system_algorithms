@@ -1,7 +1,8 @@
 #ifndef RB_TREES_H
 #define RB_TREES_H
-#include <stdlib.h>
+
 #include <stdio.h>
+#include <stdlib.h>
 
 #define GET_NODE(node, n)						\
 	do {								\
@@ -20,7 +21,7 @@
  *
  * @RED: 0 -> Red node
  * @BLACK: 1 -> Black node
- * @DOUBLE_BLACK: 2 -> (used for deletion)
+ * @DOUBLE_BLACK: Double-black node (used for deletion)
  */
 typedef enum rb_color_e
 {
@@ -53,7 +54,7 @@ int rb_tree_is_valid(const rb_tree_t *tree);
 rb_tree_t *rb_tree_insert(rb_tree_t **tree, int value);
 rb_tree_t *array_to_rb_tree(int *array, size_t size);
 rb_tree_t *rb_tree_remove(rb_tree_t *root, int n);
-void rotate_left(rb_tree_t **tree, rb_tree_t *node);
-void rotate_right(rb_tree_t **tree, rb_tree_t *node);
+void rotl(rb_tree_t **tree, rb_tree_t *node);
+void rotr(rb_tree_t **tree, rb_tree_t *node);
 
 #endif /* RB_TREES_H */
