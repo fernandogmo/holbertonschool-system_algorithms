@@ -1,13 +1,13 @@
 #include "huffman.h"
 
 /**
- * huffman_codes - description
+ * huffman_tree - description
  * @data: data
  * @freq: freq
  * @size: size
  * Return: int
  */
-int huffman_codes(char *data, size_t *freq, size_t size)
+binary_tree_node_t *huffman_tree(char *data, size_t *freq, size_t size)
 {
-	return (-1);
+	return (NULL);
 }
