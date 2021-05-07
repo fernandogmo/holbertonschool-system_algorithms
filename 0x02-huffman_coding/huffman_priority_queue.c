@@ -30,7 +30,7 @@ heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size)
 	for (i = 0; i < size; ++i)
 	{
 		symbol_t *s = symbol_create(data[i], freq[i]);
-		if (heap_insert(q, s) == NULL)
+		if (heap_insert(q, binary_tree_node(NULL, s)) == NULL)
 			return (NULL);
 	}
 	return (q);
