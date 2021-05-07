@@ -60,9 +60,9 @@ void *heap_extract(heap_t *heap)
 			last->parent->left = NULL;
 		else
 			last->parent->right = NULL;
-		free(last);
 		heapify(heap->root, heap->data_cmp);
 	}
+	free(last);
 	--heap->size;
 	return (data);
 }
