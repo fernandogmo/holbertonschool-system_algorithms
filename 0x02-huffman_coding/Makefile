@@ -10,7 +10,8 @@ CFLAGS	= -ggdb3 \
 	  -Wall \
 	  -Werror \
 	  -Wextra \
-	  -pedantic
+	  -pedantic\
+	#   -std=c99
 
 .PHONY: test clean again fullgrind check_version
 
@@ -27,15 +28,15 @@ ex_2 : ex_2.c
 4 : 4-main.c heap/*.c utils/*.c
 5 : 5-main.c heap/*.c symbol.c
 6 : 6-main.c heap/*.c symbol.c utils/*.c huffman_priority_queue.c
-7 : 7-main.c heap/*.c symbol.c utils/*.c hhuffman_priority_queue.c huffman_extract_and_insert.c
-8 : 8-main.c heap/*.c symbol.c utils/*.c hhuffman_priority_queue.c huffman_extract_and_insert.c huffman_tree.c
-9 : 9-main.c heap/*.c symbol.c utils/*.c hhuffman_priority_queue.c huffman_extract_and_insert.c huffman_tree.c huffman_codes.c
+7 : 7-main.c heap/*.c symbol.c utils/*.c huffman_priority_queue.c huffman_extract_and_insert.c
+8 : 8-main.c heap/*.c symbol.c utils/*.c huffman_priority_queue.c huffman_extract_and_insert.c huffman_tree.c
+9 : 9-main.c heap/*.c symbol.c utils/*.c huffman_priority_queue.c huffman_extract_and_insert.c huffman_tree.c huffman_codes.c
 
 RED = \033[0;31m
 BLUE = \033[0;34m
 NC  = \033[0m
 
-TARGET ?= 5
+TARGET ?= 7
 test: $(TARGET)
 	@echo -en "${BLUE}"
 	@$(CC) --version | head -1

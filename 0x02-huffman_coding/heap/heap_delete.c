@@ -6,14 +6,13 @@
  * @node: node_t pointer to the node to free
  * @free_data: pointer to function to free node data
  */
-static void free_binary_tree_node(node_t *node, void (*free_data)(void *))
+void free_binary_tree_node(node_t *node, void (*free_data)(void *))
 {
 	if (node)
 	{
 		free_binary_tree_node(node->left, free_data);
 		free_binary_tree_node(node->right, free_data);
-		if (free_data)
-			free_data(node->data);
+		if (free_data) free_data(node->data);
 		free(node);
 	}
 }
