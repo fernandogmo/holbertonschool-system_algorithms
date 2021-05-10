@@ -50,5 +50,6 @@ int huffman_codes(char *data, size_t *freq, size_t size)
 	node_t *root = huffman_tree(data, freq, size);
 	if (!root) return (0);
 	print_leaf_data(NULL, root);
+	free_binary_tree_node(root, free);
 	return (1);
 }
