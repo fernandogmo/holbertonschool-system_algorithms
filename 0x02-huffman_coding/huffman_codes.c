@@ -33,20 +33,6 @@ void print_leaf_data(char *buffer, node_t *node)
 }
 
 /**
- * free_symbol_node - description
- * @data: generic data
- */
-void free_symbol_node(void *data)
-{
-	if (data)
-	{
-		node_t *nested = (node_t *)data;
-		symbol_t *symbol = (symbol_t *)nested->data;
-		free(symbol);
-		free(nested);
-	}
-}
-/**
  * huffman_codes - for (a/6),(b/11),(c/12),(d/13),(e/16),(f/36), prints:
  * * f: 0
  * * c: 100
@@ -64,6 +50,5 @@ int huffman_codes(char *data, size_t *freq, size_t size)
 	node_t *root = huffman_tree(data, freq, size);
 	if (!root) return (0);
 	print_leaf_data(NULL, root);
-	free_binary_tree_node(root, free_symbol_node);
 	return (1);
 }
