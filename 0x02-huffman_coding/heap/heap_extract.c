@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "heap.h"
+#include <stdio.h>
 
 /**
  * heapify - restores heap property from root node of subtree
@@ -12,12 +13,14 @@ static void heapify(node_t *root, int (*data_cmp)(void *, void *))
 
 	if (root->right && data_cmp(root->left->data, root->right->data) > 0)
 	{
-		DATASWAP(root, root->right);
+		if (data_cmp(root->data, root->right->data) >= 0)
+			DATASWAP(root, root->right);
 		heapify(root->right, data_cmp);
 	}
 	else
 	{
-		DATASWAP(root, root->left);
+		if (data_cmp(root->data, root->left->data) >= 0)
+			DATASWAP(root, root->left);
 		heapify(root->left, data_cmp);
 	}
 }
@@ -31,11 +34,9 @@ static void heapify(node_t *root, int (*data_cmp)(void *, void *))
  */
 static size_t heap_to_array(node_t **array, node_t *root, size_t i)
 {
-	if (!(array[i] = root))
-		return (0);
-	return (heap_to_array(array, root->left, 2 * i + 1)
-		+ 1
-		+ heap_to_array(array, root->right, 2 * i + 2));
+	return (!root || !array || !(array[i] = root)
+		? 0 : 1 + heap_to_array(array, root->left, 2 * i + 1)
+			+ heap_to_array(array, root->right, 2 * i + 2));
 }
 
 /**
@@ -44,8 +45,8 @@ static size_t heap_to_array(node_t **array, node_t *root, size_t i)
  * Return: generic pointer to data that was stored in heap's root
  */
 void *heap_extract(heap_t *heap)
-{
-	node_t *a[32], *last;
+{C99(
+	node_t *a[heap->size], *last;
 	void *data = heap->root->data;
 
 	if (!heap || heap->size != heap_to_array((node_t **)&a, heap->root, 0))
@@ -64,5 +65,7 @@ void *heap_extract(heap_t *heap)
 	}
 	free(last);
 	--heap->size;
+DBG(PRINT_NODE_ARRAY((const node_t **)&a, heap->size));
+DBG(printf("heap->size now %ld\n\n", heap->size));
 	return (data);
-}
+);}

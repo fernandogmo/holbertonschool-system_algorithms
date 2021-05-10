@@ -31,15 +31,36 @@ int huffman_codes(char *data, size_t *freq, size_t size);
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wvariadic-macros"
 
+#ifdef PRINT_NODE_ARRAY
+#undef PRINT_NODE_ARRAY
+#endif
+#if USING_SYMBOL_NODE
+void print_int_node_array(const node_t **, size_t);
+#define PRINT_NODE_ARRAY print_int_node_array
+#else
+void print_symbol_node_array(const node_t **array, size_t size);
+#define PRINT_NODE_ARRAY print_symbol_node_array
+#endif
+
 #ifndef C99
 #define C99(...) \
 do { \
 _Pragma("GCC diagnostic push")\
 _Pragma("GCC diagnostic ignored \"-Wpedantic\"")\
+_Pragma("GCC diagnostic ignored \"-Wvla\"")\
 	__VA_ARGS__ \
 _Pragma("GCC diagnostic pop")\
 } while (0)
 #endif /* C99 */
+
+#ifndef DBG
+#if !RELEASE
+#include <stdio.h>
+#define DBG(...) C99(do {printf("%s:%d: ", __func__, __LINE__); __VA_ARGS__;} while (0););
+#else
+#define DBG(...)
+#endif
+#endif
 
 #pragma GCC diagnostic pop
 

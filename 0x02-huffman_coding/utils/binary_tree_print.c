@@ -87,6 +87,7 @@ void binary_tree_print(const binary_tree_node_t *root,
 			return;
 		memset(s[i], 32, 255);
 	}
+DBG(printf("\n"));
 	print_t(root, 0, 0, s, print_data);
 	for (i = 0; i < height + 1; i++)
 	{

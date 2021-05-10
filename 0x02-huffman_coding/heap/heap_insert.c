@@ -1,8 +1,9 @@
 #include "heap.h"
+#include <stdio.h>
 
 /**
- * heapify - restores heap property from root node of subtree
- * @node: hode_t root root of heap tree
+ * heapify - restores heap property from leaf node of subtree
+ * @node: node_t leaf node of heap tree
  * @data_cmp: comparison function over generic data pointers
  * Return: node_t pointer to sifted up node
  */
@@ -28,16 +29,19 @@ node_t *heap_insert(heap_t *heap, void *data)
 {C99(
 	if (!heap || !data) return (NULL);
 	static node_t *harray[32];
-	static size_t hlen;
-	++heap->size;
-	if (!heap->root)
+	if (!heap->size)
 	{
-		harray[hlen = 0] = binary_tree_node(NULL, data);
-		return (heap->root = harray[hlen++]);
+		harray[heap->size++] = binary_tree_node(NULL, data);
+DBG(PRINT_NODE_ARRAY((const node_t **)&harray, heap->size));
+DBG(printf("heap->size now %ld\n\n", heap->size));
+		return (heap->root = harray[0]);
 	}
-	node_t *parent = harray[(hlen - 1) / 2];
-	harray[hlen++] = (!parent->left)
+	node_t *parent = harray[(heap->size - 1) / 2];
+	harray[heap->size++] = (!parent->left)
 			? (parent->left = binary_tree_node(parent, data))
 			: (parent->right = binary_tree_node(parent, data));
-	return (heapify(harray[hlen - 1], heap->data_cmp));
+	node_t *new = (heapify(harray[heap->size - 1], heap->data_cmp));
+DBG(PRINT_NODE_ARRAY((const node_t **)&harray, heap->size));
+DBG(printf("heap->size now %ld\n\n", heap->size));
+	return (new);
 );}

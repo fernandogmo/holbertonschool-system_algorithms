@@ -13,6 +13,6 @@ symbol_t *symbol_create(char data, size_t freq)
 {C99(
 	symbol_t src = (symbol_t){data, freq};
 	symbol_t *dst = calloc(1, sizeof(*dst));
-	if (!dst) return (NULL);
+	if (!dst || !data) { free(dst); return (NULL);}
 	return (memcpy(dst, &src, sizeof(src)));
 );}
